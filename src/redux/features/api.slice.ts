@@ -1,6 +1,6 @@
-import { API } from "@/lib/constant";
+import { API } from "@/lib/constants";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 
 export const api = createApi({
     reducerPath: "api",
