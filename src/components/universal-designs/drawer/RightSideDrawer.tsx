@@ -4,6 +4,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store"; // adjust to your root reducer type
 import { closeDrawer } from "@/redux/features/drawer.slice"; // adjust to your slice file path
+import DynamicTabs from "../tabs/DynamicTabs";
 
 export default function RightSideDrawer() {
     const isOpen = useSelector(
@@ -50,6 +51,8 @@ export default function RightSideDrawer() {
                     <div>
                         {/* Put your drawer content here */}
                         <p>This is the drawer content.</p>
+
+                        <DynamicTabs />
                     </div>
                 </div>
             </aside>
