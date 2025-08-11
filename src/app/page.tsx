@@ -1,11 +1,11 @@
-import OpenDrawer from "@/components/universal-designs/drawer/OpenDrawer";
+import Routine from "@/components/universal-designs/routine/Routine";
 import Link from "next/link";
 
 export default function Home() {
     return (
         <div>
             <h1>Home</h1>
-            <OpenDrawer />
+            <Routine />
             <Link href="/about">About</Link>
         </div>
     );

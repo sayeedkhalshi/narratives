@@ -5,12 +5,14 @@ import { api } from "./features/api.slice";
 import { userSlice } from "./features/user.slice";
 import { drawerSlice } from "./features/drawer.slice";
 import { tabsSlice } from "./features/tabs.slice";
+import routineReducer from "@/redux/features/routine.slice";
 
 const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
     [userSlice.reducerPath]: userSlice.reducer,
     [drawerSlice.reducerPath]: drawerSlice.reducer,
     [tabsSlice.reducerPath]: tabsSlice.reducer,
+    routine: routineReducer,
 });
 
 export const store = configureStore({

@@ -1,0 +1,343 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  Term Term[]
+
+  Thread Thread[]
+
+  Project Project[]
+
+  Goal Goal[]
+
+  Process Process[]
+
+  Problem Problem[]
+
+  Task Task[]
+
+  Activity Activity[]
+
+  Attempt Attempt[]
+
+  Comment Comment[]
+
+  Resource Resource[]
+
+  Review Review[]
+
+  Team Team[]
+
+  TeamMember TeamMember[]
+
+  Path Path[]
+
+  Routine Routine[]
+
+  RoutineSlot RoutineSlot[]
+
+  RoutineSlotThread RoutineSlotThread[]
+
+  RoutineSlotTask RoutineSlotTask[]
+
+  RoutineSlotActivity RoutineSlotActivity[]
+}
+// ----------------------------
+// TERM - The main semantic container
+// ----------------------------
+model Term {
+    user      User?       @relation(fields: [id], references: [id])
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+   type          TermKind
+  derivedFromId String? @db.ObjectId    // Only used if this is a PerspectiveTerm
+  derivedFrom   Term?      @relation("DerivedTerms", fields: [derivedFromId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  derivedTerms  Term[]     @relation("DerivedTerms")
+  layer       String?      // For Bloom’s taxonomy or category grouping
+  meta        Json?        // todos, aim, strategies, success, failures, createdTerms
+  threads     Thread[]
+  paths       Path[]       // Paths starting from this Term
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+enum TermKind {
+  GENUINE
+  PERSPECTIVE
+}
+// ----------------------------
+// THREAD - Topics inside a Term
+// ----------------------------
+model Thread {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String?
+  termId         String    @db.ObjectId
+  term           Term      @relation(fields: [termId], references: [id])
+  projects       Project[]
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ----------------------------
+// PROJECT - Inside a Thread
+// ----------------------------
+model Project {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String?
+  threadId       String   @db.ObjectId
+  thread         Thread   @relation(fields: [threadId], references: [id])
+  goals          Goal[]
+  teams          Team[]   // ✅ Now a Project can have multiple Teams
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+
+// ----------------------------
+// GOAL - Inside a Project (can be LEARNING)
+// ----------------------------
+model Goal {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String?
+  type           GoalType   @default(NORMAL)
+  projectId      String     @db.ObjectId
+  project        Project    @relation(fields: [projectId], references: [id])
+  processes      Process[]
+  pathsFromTerm  Path[]     // ✅ opposite of Path.learningGoal
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+
+enum GoalType {
+  NORMAL
+  LEARNING
+}
+
+// ----------------------------
+// PROCESS -> PROBLEM -> TASK -> ACTIVITY
+// ----------------------------
+model Process {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  goalId         String    @db.ObjectId
+  goal           Goal      @relation(fields: [goalId], references: [id])
+  problems       Problem[]
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Problem {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  processId      String    @db.ObjectId
+  process        Process   @relation(fields: [processId], references: [id])
+  tasks          Task[]
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Task {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  problemId      String    @db.ObjectId
+  problem        Problem   @relation(fields: [problemId], references: [id])
+  activities     Activity[]
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Activity {
+    user           User?     @relation(fields: [id], references: [id])
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  taskId         String     @db.ObjectId
+  task           Task       @relation(fields: [taskId], references: [id])
+  attempts       Attempt[]
+  comments       Comment[]
+  resources      Resource[]
+  reviews        Review[]
+  meta           Json?
+  lastWorkedAt   DateTime?
+  daytimeRoutine Json?
+  threadRoutine  Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ----------------------------
+// ACTIVITY CHILDREN: Attempts, Comments, Resources, Reviews
+// ----------------------------
+model Attempt {
+    user        User?     @relation(fields: [id], references: [id])
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  activityId  String    @db.ObjectId
+  activity    Activity  @relation(fields: [activityId], references: [id])
+  result      String?
+  createdAt   DateTime @default(now())
+}
+
+model Comment {
+    user        User?     @relation(fields: [id], references: [id])
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  activityId  String    @db.ObjectId
+  activity    Activity  @relation(fields: [activityId], references: [id])
+  content     String
+  createdAt   DateTime @default(now())
+}
+
+model Resource {
+    user        User?     @relation(fields: [id], references: [id])
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  activityId  String    @db.ObjectId
+  activity    Activity  @relation(fields: [activityId], references: [id])
+  url         String
+  title       String?
+}
+
+model Review {
+    user        User?     @relation(fields: [id], references: [id])
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  activityId  String    @db.ObjectId
+  activity    Activity  @relation(fields: [activityId], references: [id])
+  content     String
+  createdAt   DateTime @default(now())
+}
+
+// ----------------------------
+// TEAM & MEMBERS
+// ----------------------------
+model Team {
+    user      User?        @relation(fields: [id], references: [id])
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  projectId String       @db.ObjectId
+  project   Project      @relation(fields: [projectId], references: [id])
+  name      String
+  details   Json?
+  members   TeamMember[]
+}
+
+model TeamMember {
+    user      User?     @relation(fields: [userId], references: [id])
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  teamId  String    @db.ObjectId
+  team    Team      @relation(fields: [teamId], references: [id])
+  userId  String
+  role    String?
+}
+
+// ----------------------------
+// PATH (Term -> LearningGoal)
+// ----------------------------
+model Path {
+    user            User?     @relation(fields: [id], references: [id])
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  termId          String   @db.ObjectId
+  term            Term     @relation(fields: [termId], references: [id])
+  learningGoalId  String   @db.ObjectId
+  learningGoal    Goal     @relation(fields: [learningGoalId], references: [id])
+  steps           Json?    // Optional path steps
+  createdAt       DateTime @default(now())
+}
+
+model Routine {
+    user      User?       @relation(fields: [id], references: [id])
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  ownerId   String?
+  slots     RoutineSlot[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RoutineSlot {
+    user        User?       @relation(fields: [id], references: [id])
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  routineId   String      @db.ObjectId
+  routine     Routine     @relation(fields: [routineId], references: [id])
+  label       String      // "Morning", "Afternoon"
+  startTime   String?
+  endTime     String?
+  todos       Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  slotThreads RoutineSlotThread[]
+  slotTasks   RoutineSlotTask[]
+  slotActivities RoutineSlotActivity[]
+}
+model RoutineSlotThread {
+    user     User?       @relation(fields: [id], references: [id])
+  id       String      @id @default(auto()) @map("_id") @db.ObjectId
+  slotId   String      @db.ObjectId
+  slot     RoutineSlot @relation(fields: [slotId], references: [id])
+  threadId String      @db.ObjectId
+  //thread   Thread      @relation(fields: [threadId], references: [id])
+
+}
+
+model RoutineSlotTask {
+    user     User?       @relation(fields: [id], references: [id])
+  id      String      @id @default(auto()) @map("_id") @db.ObjectId
+  slotId  String      @db.ObjectId
+  slot    RoutineSlot @relation(fields: [slotId], references: [id])
+  taskId  String      @db.ObjectId
+ // task    Task        @relation(fields: [taskId], references: [id])
+}
+
+model RoutineSlotActivity {
+    user       User?       @relation(fields: [id], references: [id])
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  slotId     String      @db.ObjectId
+  slot       RoutineSlot @relation(fields: [slotId], references: [id])
+  activityId String      @db.ObjectId
+ // activity   Activity    @relation(fields: [activityId], references: [id])
+}
