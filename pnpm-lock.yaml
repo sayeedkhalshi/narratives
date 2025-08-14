@@ -5,12 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@hookform/resolvers':
+    specifier: ^5.2.1
+    version: 5.2.1(react-hook-form@7.62.0)
   '@prisma/client':
     specifier: ^6.13.0
     version: 6.13.0(prisma@6.13.0)(typescript@5.9.2)
   '@reduxjs/toolkit':
     specifier: ^2.8.2
     version: 2.8.2(react-redux@9.2.0)(react@19.1.0)
+  '@tanstack/react-query':
+    specifier: ^5.85.0
+    version: 5.85.0(react@19.1.0)
   next:
     specifier: 15.4.6
     version: 15.4.6(@babel/core@7.28.0)(react-dom@19.1.0)(react@19.1.0)
@@ -27,8 +33,8 @@ dependencies:
     specifier: ^9.2.0
     version: 9.2.0(@types/react@19.1.9)(react@19.1.0)(redux@5.0.1)
   zod:
-    specifier: ^4.0.15
-    version: 4.0.15
+    specifier: ^4.0.17
+    version: 4.0.17
 
 devDependencies:
   '@eslint/eslintrc':
@@ -571,6 +577,15 @@ packages:
       '@eslint/core': 0.15.2
       levn: 0.4.1
     dev: true
+
+  /@hookform/resolvers@5.2.1(react-hook-form@7.62.0):
+    resolution: {integrity: sha512-u0+6X58gkjMcxur1wRWokA7XsiiBJ6aK17aPZxhkoYiK5J+HcTx0Vhu9ovXe6H+dVpO6cjrn2FkJTryXEMlryQ==}
+    peerDependencies:
+      react-hook-form: ^7.55.0
+    dependencies:
+      '@standard-schema/utils': 0.3.0
+      react-hook-form: 7.62.0(react@19.1.0)
+    dev: false
 
   /@humanfs/core@0.19.1:
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1531,6 +1546,19 @@ packages:
       postcss: 8.5.6
       tailwindcss: 4.1.11
     dev: true
+
+  /@tanstack/query-core@5.83.1:
+    resolution: {integrity: sha512-OG69LQgT7jSp+5pPuCfzltq/+7l2xoweggjme9vlbCPa/d7D7zaqv5vN/S82SzSYZ4EDLTxNO1PWrv49RAS64Q==}
+    dev: false
+
+  /@tanstack/react-query@5.85.0(react@19.1.0):
+    resolution: {integrity: sha512-t1HMfToVMGfwEJRya6GG7gbK0luZJd+9IySFNePL1BforU1F3LqQ3tBC2Rpvr88bOrlU6PXyMLgJD0Yzn4ztUw==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.83.1
+      react: 19.1.0
+    dev: false
 
   /@testing-library/dom@10.4.1:
     resolution: {integrity: sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg==}
@@ -6399,6 +6427,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod@4.0.15:
-    resolution: {integrity: sha512-2IVHb9h4Mt6+UXkyMs0XbfICUh1eUrlJJAOupBHUhLRnKkruawyDddYRCs0Eizt900ntIMk9/4RksYl+FgSpcQ==}
+  /zod@4.0.17:
+    resolution: {integrity: sha512-1PHjlYRevNxxdy2JZ8JcNAw7rX8V9P1AKkP+x/xZfxB0K5FYfuV+Ug6P/6NVSR2jHQ+FzDDoDHS04nYUsOIyLQ==}
     dev: false

@@ -72,7 +72,6 @@ model Term {
   derivedTerms  Term[]     @relation("DerivedTerms")
   layer       String?      // For Bloom’s taxonomy or category grouping
   meta        Json?        // todos, aim, strategies, success, failures, createdTerms
-  threads     Thread[]
   paths       Path[]       // Paths starting from this Term
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -89,13 +88,7 @@ model Thread {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   description    String?
-  termId         String    @db.ObjectId
-  term           Term      @relation(fields: [termId], references: [id])
   projects       Project[]
-  meta           Json?
-  lastWorkedAt   DateTime?
-  daytimeRoutine Json?
-  threadRoutine  Json?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

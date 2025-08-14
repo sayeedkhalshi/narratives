@@ -134,11 +134,6 @@ exports.Prisma.ThreadScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  termId: 'termId',
-  meta: 'meta',
-  lastWorkedAt: 'lastWorkedAt',
-  daytimeRoutine: 'daytimeRoutine',
-  threadRoutine: 'threadRoutine',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

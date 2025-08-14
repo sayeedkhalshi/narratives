@@ -6,12 +6,16 @@ import { userSlice } from "./features/user.slice";
 import { drawerSlice } from "./features/drawer.slice";
 import { tabsSlice } from "./features/tabs.slice";
 import routineReducer from "@/redux/features/routine.slice";
+import { popupSlice } from "./features/popus.slice";
+import { threadSlice } from "./features/thread.slice";
 
 const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
     [userSlice.reducerPath]: userSlice.reducer,
     [drawerSlice.reducerPath]: drawerSlice.reducer,
     [tabsSlice.reducerPath]: tabsSlice.reducer,
+    [popupSlice.reducerPath]: popupSlice.reducer,
+    [threadSlice.reducerPath]: threadSlice.reducer,
     routine: routineReducer,
 });
 

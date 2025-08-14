@@ -2888,13 +2888,11 @@ export namespace Prisma {
 
   export type TermCountOutputType = {
     derivedTerms: number
-    threads: number
     paths: number
   }
 
   export type TermCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     derivedTerms?: boolean | TermCountOutputTypeCountDerivedTermsArgs
-    threads?: boolean | TermCountOutputTypeCountThreadsArgs
     paths?: boolean | TermCountOutputTypeCountPathsArgs
   }
 
@@ -2914,13 +2912,6 @@ export namespace Prisma {
    */
   export type TermCountOutputTypeCountDerivedTermsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TermWhereInput
-  }
-
-  /**
-   * TermCountOutputType without action
-   */
-  export type TermCountOutputTypeCountThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ThreadWhereInput
   }
 
   /**
@@ -5007,7 +4998,6 @@ export namespace Prisma {
     user?: boolean | Term$userArgs<ExtArgs>
     derivedFrom?: boolean | Term$derivedFromArgs<ExtArgs>
     derivedTerms?: boolean | Term$derivedTermsArgs<ExtArgs>
-    threads?: boolean | Term$threadsArgs<ExtArgs>
     paths?: boolean | Term$pathsArgs<ExtArgs>
     _count?: boolean | TermCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["term"]>
@@ -5031,7 +5021,6 @@ export namespace Prisma {
     user?: boolean | Term$userArgs<ExtArgs>
     derivedFrom?: boolean | Term$derivedFromArgs<ExtArgs>
     derivedTerms?: boolean | Term$derivedTermsArgs<ExtArgs>
-    threads?: boolean | Term$threadsArgs<ExtArgs>
     paths?: boolean | Term$pathsArgs<ExtArgs>
     _count?: boolean | TermCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5042,7 +5031,6 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null
       derivedFrom: Prisma.$TermPayload<ExtArgs> | null
       derivedTerms: Prisma.$TermPayload<ExtArgs>[]
-      threads: Prisma.$ThreadPayload<ExtArgs>[]
       paths: Prisma.$PathPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5421,7 +5409,6 @@ export namespace Prisma {
     user<T extends Term$userArgs<ExtArgs> = {}>(args?: Subset<T, Term$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     derivedFrom<T extends Term$derivedFromArgs<ExtArgs> = {}>(args?: Subset<T, Term$derivedFromArgs<ExtArgs>>): Prisma__TermClient<$Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     derivedTerms<T extends Term$derivedTermsArgs<ExtArgs> = {}>(args?: Subset<T, Term$derivedTermsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    threads<T extends Term$threadsArgs<ExtArgs> = {}>(args?: Subset<T, Term$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     paths<T extends Term$pathsArgs<ExtArgs> = {}>(args?: Subset<T, Term$pathsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PathPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5893,30 +5880,6 @@ export namespace Prisma {
   }
 
   /**
-   * Term.threads
-   */
-  export type Term$threadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Thread
-     */
-    select?: ThreadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Thread
-     */
-    omit?: ThreadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ThreadInclude<ExtArgs> | null
-    where?: ThreadWhereInput
-    orderBy?: ThreadOrderByWithRelationInput | ThreadOrderByWithRelationInput[]
-    cursor?: ThreadWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ThreadScalarFieldEnum | ThreadScalarFieldEnum[]
-  }
-
-  /**
    * Term.paths
    */
   export type Term$pathsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5973,8 +5936,6 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    termId: string | null
-    lastWorkedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5983,8 +5944,6 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    termId: string | null
-    lastWorkedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5993,11 +5952,6 @@ export namespace Prisma {
     id: number
     name: number
     description: number
-    termId: number
-    meta: number
-    lastWorkedAt: number
-    daytimeRoutine: number
-    threadRoutine: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6008,8 +5962,6 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    termId?: true
-    lastWorkedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6018,8 +5970,6 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    termId?: true
-    lastWorkedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6028,11 +5978,6 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
-    termId?: true
-    meta?: true
-    lastWorkedAt?: true
-    daytimeRoutine?: true
-    threadRoutine?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6114,11 +6059,6 @@ export namespace Prisma {
     id: string
     name: string
     description: string | null
-    termId: string
-    meta: JsonValue | null
-    lastWorkedAt: Date | null
-    daytimeRoutine: JsonValue | null
-    threadRoutine: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: ThreadCountAggregateOutputType | null
@@ -6144,15 +6084,9 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    termId?: boolean
-    meta?: boolean
-    lastWorkedAt?: boolean
-    daytimeRoutine?: boolean
-    threadRoutine?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | Thread$userArgs<ExtArgs>
-    term?: boolean | TermDefaultArgs<ExtArgs>
     projects?: boolean | Thread$projectsArgs<ExtArgs>
     _count?: boolean | ThreadCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["thread"]>
@@ -6163,19 +6097,13 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
-    termId?: boolean
-    meta?: boolean
-    lastWorkedAt?: boolean
-    daytimeRoutine?: boolean
-    threadRoutine?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ThreadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "termId" | "meta" | "lastWorkedAt" | "daytimeRoutine" | "threadRoutine" | "createdAt" | "updatedAt", ExtArgs["result"]["thread"]>
+  export type ThreadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["thread"]>
   export type ThreadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Thread$userArgs<ExtArgs>
-    term?: boolean | TermDefaultArgs<ExtArgs>
     projects?: boolean | Thread$projectsArgs<ExtArgs>
     _count?: boolean | ThreadCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -6184,18 +6112,12 @@ export namespace Prisma {
     name: "Thread"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
-      term: Prisma.$TermPayload<ExtArgs>
       projects: Prisma.$ProjectPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       description: string | null
-      termId: string
-      meta: Prisma.JsonValue | null
-      lastWorkedAt: Date | null
-      daytimeRoutine: Prisma.JsonValue | null
-      threadRoutine: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["thread"]>
@@ -6562,7 +6484,6 @@ export namespace Prisma {
   export interface Prisma__ThreadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends Thread$userArgs<ExtArgs> = {}>(args?: Subset<T, Thread$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    term<T extends TermDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TermDefaultArgs<ExtArgs>>): Prisma__TermClient<$Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     projects<T extends Thread$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Thread$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6596,11 +6517,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Thread", 'String'>
     readonly name: FieldRef<"Thread", 'String'>
     readonly description: FieldRef<"Thread", 'String'>
-    readonly termId: FieldRef<"Thread", 'String'>
-    readonly meta: FieldRef<"Thread", 'Json'>
-    readonly lastWorkedAt: FieldRef<"Thread", 'DateTime'>
-    readonly daytimeRoutine: FieldRef<"Thread", 'Json'>
-    readonly threadRoutine: FieldRef<"Thread", 'Json'>
     readonly createdAt: FieldRef<"Thread", 'DateTime'>
     readonly updatedAt: FieldRef<"Thread", 'DateTime'>
   }
@@ -25681,11 +25597,6 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
-    termId: 'termId',
-    meta: 'meta',
-    lastWorkedAt: 'lastWorkedAt',
-    daytimeRoutine: 'daytimeRoutine',
-    threadRoutine: 'threadRoutine',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -26123,7 +26034,6 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     derivedFrom?: XOR<TermNullableScalarRelationFilter, TermWhereInput> | null
     derivedTerms?: TermListRelationFilter
-    threads?: ThreadListRelationFilter
     paths?: PathListRelationFilter
   }
 
@@ -26140,7 +26050,6 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     derivedFrom?: TermOrderByWithRelationInput
     derivedTerms?: TermOrderByRelationAggregateInput
-    threads?: ThreadOrderByRelationAggregateInput
     paths?: PathOrderByRelationAggregateInput
   }
 
@@ -26160,7 +26069,6 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     derivedFrom?: XOR<TermNullableScalarRelationFilter, TermWhereInput> | null
     derivedTerms?: TermListRelationFilter
-    threads?: ThreadListRelationFilter
     paths?: PathListRelationFilter
   }, "id">
 
@@ -26201,15 +26109,9 @@ export namespace Prisma {
     id?: StringFilter<"Thread"> | string
     name?: StringFilter<"Thread"> | string
     description?: StringNullableFilter<"Thread"> | string | null
-    termId?: StringFilter<"Thread"> | string
-    meta?: JsonNullableFilter<"Thread">
-    lastWorkedAt?: DateTimeNullableFilter<"Thread"> | Date | string | null
-    daytimeRoutine?: JsonNullableFilter<"Thread">
-    threadRoutine?: JsonNullableFilter<"Thread">
     createdAt?: DateTimeFilter<"Thread"> | Date | string
     updatedAt?: DateTimeFilter<"Thread"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    term?: XOR<TermScalarRelationFilter, TermWhereInput>
     projects?: ProjectListRelationFilter
   }
 
@@ -26217,15 +26119,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    termId?: SortOrder
-    meta?: SortOrder
-    lastWorkedAt?: SortOrder
-    daytimeRoutine?: SortOrder
-    threadRoutine?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    term?: TermOrderByWithRelationInput
     projects?: ProjectOrderByRelationAggregateInput
   }
 
@@ -26236,15 +26132,9 @@ export namespace Prisma {
     NOT?: ThreadWhereInput | ThreadWhereInput[]
     name?: StringFilter<"Thread"> | string
     description?: StringNullableFilter<"Thread"> | string | null
-    termId?: StringFilter<"Thread"> | string
-    meta?: JsonNullableFilter<"Thread">
-    lastWorkedAt?: DateTimeNullableFilter<"Thread"> | Date | string | null
-    daytimeRoutine?: JsonNullableFilter<"Thread">
-    threadRoutine?: JsonNullableFilter<"Thread">
     createdAt?: DateTimeFilter<"Thread"> | Date | string
     updatedAt?: DateTimeFilter<"Thread"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    term?: XOR<TermScalarRelationFilter, TermWhereInput>
     projects?: ProjectListRelationFilter
   }, "id">
 
@@ -26252,11 +26142,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    termId?: SortOrder
-    meta?: SortOrder
-    lastWorkedAt?: SortOrder
-    daytimeRoutine?: SortOrder
-    threadRoutine?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ThreadCountOrderByAggregateInput
@@ -26271,11 +26156,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Thread"> | string
     name?: StringWithAggregatesFilter<"Thread"> | string
     description?: StringNullableWithAggregatesFilter<"Thread"> | string | null
-    termId?: StringWithAggregatesFilter<"Thread"> | string
-    meta?: JsonNullableWithAggregatesFilter<"Thread">
-    lastWorkedAt?: DateTimeNullableWithAggregatesFilter<"Thread"> | Date | string | null
-    daytimeRoutine?: JsonNullableWithAggregatesFilter<"Thread">
-    threadRoutine?: JsonNullableWithAggregatesFilter<"Thread">
     createdAt?: DateTimeWithAggregatesFilter<"Thread"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Thread"> | Date | string
   }
@@ -27584,7 +27464,6 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutTermInput
     derivedFrom?: TermCreateNestedOneWithoutDerivedTermsInput
     derivedTerms?: TermCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadCreateNestedManyWithoutTermInput
     paths?: PathCreateNestedManyWithoutTermInput
   }
 
@@ -27599,7 +27478,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     derivedTerms?: TermUncheckedCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadUncheckedCreateNestedManyWithoutTermInput
     paths?: PathUncheckedCreateNestedManyWithoutTermInput
   }
 
@@ -27614,7 +27492,6 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutTermNestedInput
     derivedFrom?: TermUpdateOneWithoutDerivedTermsNestedInput
     derivedTerms?: TermUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUpdateManyWithoutTermNestedInput
     paths?: PathUpdateManyWithoutTermNestedInput
   }
 
@@ -27628,7 +27505,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     derivedTerms?: TermUncheckedUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUncheckedUpdateManyWithoutTermNestedInput
     paths?: PathUncheckedUpdateManyWithoutTermNestedInput
   }
 
@@ -27668,14 +27544,9 @@ export namespace Prisma {
   export type ThreadCreateInput = {
     name: string
     description?: string | null
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutThreadInput
-    term: TermCreateNestedOneWithoutThreadsInput
     projects?: ProjectCreateNestedManyWithoutThreadInput
   }
 
@@ -27683,11 +27554,6 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    termId: string
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutThreadInput
@@ -27696,25 +27562,15 @@ export namespace Prisma {
   export type ThreadUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutThreadNestedInput
-    term?: TermUpdateOneRequiredWithoutThreadsNestedInput
     projects?: ProjectUpdateManyWithoutThreadNestedInput
   }
 
   export type ThreadUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    termId?: StringFieldUpdateOperationsInput | string
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutThreadNestedInput
@@ -27724,11 +27580,6 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    termId: string
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27736,10 +27587,6 @@ export namespace Prisma {
   export type ThreadUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27747,11 +27594,6 @@ export namespace Prisma {
   export type ThreadUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    termId?: StringFieldUpdateOperationsInput | string
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29276,6 +29118,30 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type ThreadCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ThreadMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ThreadMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -29285,59 +29151,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
-  }
-
-  export type TermScalarRelationFilter = {
-    is?: TermWhereInput
-    isNot?: TermWhereInput
-  }
-
-  export type ThreadCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    termId?: SortOrder
-    meta?: SortOrder
-    lastWorkedAt?: SortOrder
-    daytimeRoutine?: SortOrder
-    threadRoutine?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ThreadMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    termId?: SortOrder
-    lastWorkedAt?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ThreadMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    termId?: SortOrder
-    lastWorkedAt?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -29377,6 +29190,21 @@ export namespace Prisma {
     lastWorkedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type EnumGoalTypeFilter<$PrismaModel = never> = {
@@ -29709,6 +29537,11 @@ export namespace Prisma {
     teamId?: SortOrder
     userId?: SortOrder
     role?: SortOrder
+  }
+
+  export type TermScalarRelationFilter = {
+    is?: TermWhereInput
+    isNot?: TermWhereInput
   }
 
   export type PathCountOrderByAggregateInput = {
@@ -30715,13 +30548,6 @@ export namespace Prisma {
     connect?: TermWhereUniqueInput | TermWhereUniqueInput[]
   }
 
-  export type ThreadCreateNestedManyWithoutTermInput = {
-    create?: XOR<ThreadCreateWithoutTermInput, ThreadUncheckedCreateWithoutTermInput> | ThreadCreateWithoutTermInput[] | ThreadUncheckedCreateWithoutTermInput[]
-    connectOrCreate?: ThreadCreateOrConnectWithoutTermInput | ThreadCreateOrConnectWithoutTermInput[]
-    createMany?: ThreadCreateManyTermInputEnvelope
-    connect?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-  }
-
   export type PathCreateNestedManyWithoutTermInput = {
     create?: XOR<PathCreateWithoutTermInput, PathUncheckedCreateWithoutTermInput> | PathCreateWithoutTermInput[] | PathUncheckedCreateWithoutTermInput[]
     connectOrCreate?: PathCreateOrConnectWithoutTermInput | PathCreateOrConnectWithoutTermInput[]
@@ -30734,13 +30560,6 @@ export namespace Prisma {
     connectOrCreate?: TermCreateOrConnectWithoutDerivedFromInput | TermCreateOrConnectWithoutDerivedFromInput[]
     createMany?: TermCreateManyDerivedFromInputEnvelope
     connect?: TermWhereUniqueInput | TermWhereUniqueInput[]
-  }
-
-  export type ThreadUncheckedCreateNestedManyWithoutTermInput = {
-    create?: XOR<ThreadCreateWithoutTermInput, ThreadUncheckedCreateWithoutTermInput> | ThreadCreateWithoutTermInput[] | ThreadUncheckedCreateWithoutTermInput[]
-    connectOrCreate?: ThreadCreateOrConnectWithoutTermInput | ThreadCreateOrConnectWithoutTermInput[]
-    createMany?: ThreadCreateManyTermInputEnvelope
-    connect?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
   }
 
   export type PathUncheckedCreateNestedManyWithoutTermInput = {
@@ -30797,20 +30616,6 @@ export namespace Prisma {
     deleteMany?: TermScalarWhereInput | TermScalarWhereInput[]
   }
 
-  export type ThreadUpdateManyWithoutTermNestedInput = {
-    create?: XOR<ThreadCreateWithoutTermInput, ThreadUncheckedCreateWithoutTermInput> | ThreadCreateWithoutTermInput[] | ThreadUncheckedCreateWithoutTermInput[]
-    connectOrCreate?: ThreadCreateOrConnectWithoutTermInput | ThreadCreateOrConnectWithoutTermInput[]
-    upsert?: ThreadUpsertWithWhereUniqueWithoutTermInput | ThreadUpsertWithWhereUniqueWithoutTermInput[]
-    createMany?: ThreadCreateManyTermInputEnvelope
-    set?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    disconnect?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    delete?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    connect?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    update?: ThreadUpdateWithWhereUniqueWithoutTermInput | ThreadUpdateWithWhereUniqueWithoutTermInput[]
-    updateMany?: ThreadUpdateManyWithWhereWithoutTermInput | ThreadUpdateManyWithWhereWithoutTermInput[]
-    deleteMany?: ThreadScalarWhereInput | ThreadScalarWhereInput[]
-  }
-
   export type PathUpdateManyWithoutTermNestedInput = {
     create?: XOR<PathCreateWithoutTermInput, PathUncheckedCreateWithoutTermInput> | PathCreateWithoutTermInput[] | PathUncheckedCreateWithoutTermInput[]
     connectOrCreate?: PathCreateOrConnectWithoutTermInput | PathCreateOrConnectWithoutTermInput[]
@@ -30839,20 +30644,6 @@ export namespace Prisma {
     deleteMany?: TermScalarWhereInput | TermScalarWhereInput[]
   }
 
-  export type ThreadUncheckedUpdateManyWithoutTermNestedInput = {
-    create?: XOR<ThreadCreateWithoutTermInput, ThreadUncheckedCreateWithoutTermInput> | ThreadCreateWithoutTermInput[] | ThreadUncheckedCreateWithoutTermInput[]
-    connectOrCreate?: ThreadCreateOrConnectWithoutTermInput | ThreadCreateOrConnectWithoutTermInput[]
-    upsert?: ThreadUpsertWithWhereUniqueWithoutTermInput | ThreadUpsertWithWhereUniqueWithoutTermInput[]
-    createMany?: ThreadCreateManyTermInputEnvelope
-    set?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    disconnect?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    delete?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    connect?: ThreadWhereUniqueInput | ThreadWhereUniqueInput[]
-    update?: ThreadUpdateWithWhereUniqueWithoutTermInput | ThreadUpdateWithWhereUniqueWithoutTermInput[]
-    updateMany?: ThreadUpdateManyWithWhereWithoutTermInput | ThreadUpdateManyWithWhereWithoutTermInput[]
-    deleteMany?: ThreadScalarWhereInput | ThreadScalarWhereInput[]
-  }
-
   export type PathUncheckedUpdateManyWithoutTermNestedInput = {
     create?: XOR<PathCreateWithoutTermInput, PathUncheckedCreateWithoutTermInput> | PathCreateWithoutTermInput[] | PathUncheckedCreateWithoutTermInput[]
     connectOrCreate?: PathCreateOrConnectWithoutTermInput | PathCreateOrConnectWithoutTermInput[]
@@ -30873,12 +30664,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type TermCreateNestedOneWithoutThreadsInput = {
-    create?: XOR<TermCreateWithoutThreadsInput, TermUncheckedCreateWithoutThreadsInput>
-    connectOrCreate?: TermCreateOrConnectWithoutThreadsInput
-    connect?: TermWhereUniqueInput
-  }
-
   export type ProjectCreateNestedManyWithoutThreadInput = {
     create?: XOR<ProjectCreateWithoutThreadInput, ProjectUncheckedCreateWithoutThreadInput> | ProjectCreateWithoutThreadInput[] | ProjectUncheckedCreateWithoutThreadInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutThreadInput | ProjectCreateOrConnectWithoutThreadInput[]
@@ -30893,11 +30678,6 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-    unset?: boolean
-  }
-
   export type UserUpdateOneWithoutThreadNestedInput = {
     create?: XOR<UserCreateWithoutThreadInput, UserUncheckedCreateWithoutThreadInput>
     connectOrCreate?: UserCreateOrConnectWithoutThreadInput
@@ -30906,14 +30686,6 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutThreadInput, UserUpdateWithoutThreadInput>, UserUncheckedUpdateWithoutThreadInput>
-  }
-
-  export type TermUpdateOneRequiredWithoutThreadsNestedInput = {
-    create?: XOR<TermCreateWithoutThreadsInput, TermUncheckedCreateWithoutThreadsInput>
-    connectOrCreate?: TermCreateOrConnectWithoutThreadsInput
-    upsert?: TermUpsertWithoutThreadsInput
-    connect?: TermWhereUniqueInput
-    update?: XOR<XOR<TermUpdateToOneWithWhereWithoutThreadsInput, TermUpdateWithoutThreadsInput>, TermUncheckedUpdateWithoutThreadsInput>
   }
 
   export type ProjectUpdateManyWithoutThreadNestedInput = {
@@ -30982,6 +30754,11 @@ export namespace Prisma {
     connectOrCreate?: TeamCreateOrConnectWithoutProjectInput | TeamCreateOrConnectWithoutProjectInput[]
     createMany?: TeamCreateManyProjectInputEnvelope
     connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
   }
 
   export type UserUpdateOneWithoutProjectNestedInput = {
@@ -32355,7 +32132,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     derivedFrom?: TermCreateNestedOneWithoutDerivedTermsInput
     derivedTerms?: TermCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadCreateNestedManyWithoutTermInput
     paths?: PathCreateNestedManyWithoutTermInput
   }
 
@@ -32369,7 +32145,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     derivedTerms?: TermUncheckedCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadUncheckedCreateNestedManyWithoutTermInput
     paths?: PathUncheckedCreateNestedManyWithoutTermInput
   }
 
@@ -32385,24 +32160,14 @@ export namespace Prisma {
   export type ThreadCreateWithoutUserInput = {
     name: string
     description?: string | null
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    term: TermCreateNestedOneWithoutThreadsInput
     projects?: ProjectCreateNestedManyWithoutThreadInput
   }
 
   export type ThreadUncheckedCreateWithoutUserInput = {
     name: string
     description?: string | null
-    termId: string
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutThreadInput
@@ -32953,11 +32718,6 @@ export namespace Prisma {
     id?: StringFilter<"Thread"> | string
     name?: StringFilter<"Thread"> | string
     description?: StringNullableFilter<"Thread"> | string | null
-    termId?: StringFilter<"Thread"> | string
-    meta?: JsonNullableFilter<"Thread">
-    lastWorkedAt?: DateTimeNullableFilter<"Thread"> | Date | string | null
-    daytimeRoutine?: JsonNullableFilter<"Thread">
-    threadRoutine?: JsonNullableFilter<"Thread">
     createdAt?: DateTimeFilter<"Thread"> | Date | string
     updatedAt?: DateTimeFilter<"Thread"> | Date | string
   }
@@ -33529,7 +33289,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutTermInput
     derivedFrom?: TermCreateNestedOneWithoutDerivedTermsInput
-    threads?: ThreadCreateNestedManyWithoutTermInput
     paths?: PathCreateNestedManyWithoutTermInput
   }
 
@@ -33543,7 +33302,6 @@ export namespace Prisma {
     meta?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    threads?: ThreadUncheckedCreateNestedManyWithoutTermInput
     paths?: PathUncheckedCreateNestedManyWithoutTermInput
   }
 
@@ -33562,7 +33320,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutTermInput
     derivedTerms?: TermCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadCreateNestedManyWithoutTermInput
     paths?: PathCreateNestedManyWithoutTermInput
   }
 
@@ -33576,7 +33333,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     derivedTerms?: TermUncheckedCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadUncheckedCreateNestedManyWithoutTermInput
     paths?: PathUncheckedCreateNestedManyWithoutTermInput
   }
 
@@ -33587,41 +33343,6 @@ export namespace Prisma {
 
   export type TermCreateManyDerivedFromInputEnvelope = {
     data: TermCreateManyDerivedFromInput | TermCreateManyDerivedFromInput[]
-  }
-
-  export type ThreadCreateWithoutTermInput = {
-    name: string
-    description?: string | null
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutThreadInput
-    projects?: ProjectCreateNestedManyWithoutThreadInput
-  }
-
-  export type ThreadUncheckedCreateWithoutTermInput = {
-    id?: string
-    name: string
-    description?: string | null
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects?: ProjectUncheckedCreateNestedManyWithoutThreadInput
-  }
-
-  export type ThreadCreateOrConnectWithoutTermInput = {
-    where: ThreadWhereUniqueInput
-    create: XOR<ThreadCreateWithoutTermInput, ThreadUncheckedCreateWithoutTermInput>
-  }
-
-  export type ThreadCreateManyTermInputEnvelope = {
-    data: ThreadCreateManyTermInput | ThreadCreateManyTermInput[]
   }
 
   export type PathCreateWithoutTermInput = {
@@ -33725,7 +33446,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutTermNestedInput
     derivedFrom?: TermUpdateOneWithoutDerivedTermsNestedInput
-    threads?: ThreadUpdateManyWithoutTermNestedInput
     paths?: PathUpdateManyWithoutTermNestedInput
   }
 
@@ -33738,7 +33458,6 @@ export namespace Prisma {
     meta?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    threads?: ThreadUncheckedUpdateManyWithoutTermNestedInput
     paths?: PathUncheckedUpdateManyWithoutTermNestedInput
   }
 
@@ -33756,22 +33475,6 @@ export namespace Prisma {
   export type TermUpdateManyWithWhereWithoutDerivedFromInput = {
     where: TermScalarWhereInput
     data: XOR<TermUpdateManyMutationInput, TermUncheckedUpdateManyWithoutDerivedFromInput>
-  }
-
-  export type ThreadUpsertWithWhereUniqueWithoutTermInput = {
-    where: ThreadWhereUniqueInput
-    update: XOR<ThreadUpdateWithoutTermInput, ThreadUncheckedUpdateWithoutTermInput>
-    create: XOR<ThreadCreateWithoutTermInput, ThreadUncheckedCreateWithoutTermInput>
-  }
-
-  export type ThreadUpdateWithWhereUniqueWithoutTermInput = {
-    where: ThreadWhereUniqueInput
-    data: XOR<ThreadUpdateWithoutTermInput, ThreadUncheckedUpdateWithoutTermInput>
-  }
-
-  export type ThreadUpdateManyWithWhereWithoutTermInput = {
-    where: ThreadScalarWhereInput
-    data: XOR<ThreadUpdateManyMutationInput, ThreadUncheckedUpdateManyWithoutTermInput>
   }
 
   export type PathUpsertWithWhereUniqueWithoutTermInput = {
@@ -33841,39 +33544,6 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutThreadInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutThreadInput, UserUncheckedCreateWithoutThreadInput>
-  }
-
-  export type TermCreateWithoutThreadsInput = {
-    name: string
-    description?: string | null
-    type: $Enums.TermKind
-    layer?: string | null
-    meta?: InputJsonValue | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutTermInput
-    derivedFrom?: TermCreateNestedOneWithoutDerivedTermsInput
-    derivedTerms?: TermCreateNestedManyWithoutDerivedFromInput
-    paths?: PathCreateNestedManyWithoutTermInput
-  }
-
-  export type TermUncheckedCreateWithoutThreadsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    type: $Enums.TermKind
-    derivedFromId?: string | null
-    layer?: string | null
-    meta?: InputJsonValue | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    derivedTerms?: TermUncheckedCreateNestedManyWithoutDerivedFromInput
-    paths?: PathUncheckedCreateNestedManyWithoutTermInput
-  }
-
-  export type TermCreateOrConnectWithoutThreadsInput = {
-    where: TermWhereUniqueInput
-    create: XOR<TermCreateWithoutThreadsInput, TermUncheckedCreateWithoutThreadsInput>
   }
 
   export type ProjectCreateWithoutThreadInput = {
@@ -33970,44 +33640,6 @@ export namespace Prisma {
     RoutineSlotActivity?: RoutineSlotActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type TermUpsertWithoutThreadsInput = {
-    update: XOR<TermUpdateWithoutThreadsInput, TermUncheckedUpdateWithoutThreadsInput>
-    create: XOR<TermCreateWithoutThreadsInput, TermUncheckedCreateWithoutThreadsInput>
-    where?: TermWhereInput
-  }
-
-  export type TermUpdateToOneWithWhereWithoutThreadsInput = {
-    where?: TermWhereInput
-    data: XOR<TermUpdateWithoutThreadsInput, TermUncheckedUpdateWithoutThreadsInput>
-  }
-
-  export type TermUpdateWithoutThreadsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumTermKindFieldUpdateOperationsInput | $Enums.TermKind
-    layer?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutTermNestedInput
-    derivedFrom?: TermUpdateOneWithoutDerivedTermsNestedInput
-    derivedTerms?: TermUpdateManyWithoutDerivedFromNestedInput
-    paths?: PathUpdateManyWithoutTermNestedInput
-  }
-
-  export type TermUncheckedUpdateWithoutThreadsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumTermKindFieldUpdateOperationsInput | $Enums.TermKind
-    derivedFromId?: NullableStringFieldUpdateOperationsInput | string | null
-    layer?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    derivedTerms?: TermUncheckedUpdateManyWithoutDerivedFromNestedInput
-    paths?: PathUncheckedUpdateManyWithoutTermNestedInput
-  }
-
   export type ProjectUpsertWithWhereUniqueWithoutThreadInput = {
     where: ProjectWhereUniqueInput
     update: XOR<ProjectUpdateWithoutThreadInput, ProjectUncheckedUpdateWithoutThreadInput>
@@ -34080,25 +33712,15 @@ export namespace Prisma {
   export type ThreadCreateWithoutProjectsInput = {
     name: string
     description?: string | null
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutThreadInput
-    term: TermCreateNestedOneWithoutThreadsInput
   }
 
   export type ThreadUncheckedCreateWithoutProjectsInput = {
     id?: string
     name: string
     description?: string | null
-    termId: string
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -34241,24 +33863,14 @@ export namespace Prisma {
   export type ThreadUpdateWithoutProjectsInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutThreadNestedInput
-    term?: TermUpdateOneRequiredWithoutThreadsNestedInput
   }
 
   export type ThreadUncheckedUpdateWithoutProjectsInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    termId?: StringFieldUpdateOperationsInput | string
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36744,7 +36356,6 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutTermInput
     derivedFrom?: TermCreateNestedOneWithoutDerivedTermsInput
     derivedTerms?: TermCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadCreateNestedManyWithoutTermInput
   }
 
   export type TermUncheckedCreateWithoutPathsInput = {
@@ -36758,7 +36369,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     derivedTerms?: TermUncheckedCreateNestedManyWithoutDerivedFromInput
-    threads?: ThreadUncheckedCreateNestedManyWithoutTermInput
   }
 
   export type TermCreateOrConnectWithoutPathsInput = {
@@ -36880,7 +36490,6 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutTermNestedInput
     derivedFrom?: TermUpdateOneWithoutDerivedTermsNestedInput
     derivedTerms?: TermUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUpdateManyWithoutTermNestedInput
   }
 
   export type TermUncheckedUpdateWithoutPathsInput = {
@@ -36893,7 +36502,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     derivedTerms?: TermUncheckedUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUncheckedUpdateManyWithoutTermNestedInput
   }
 
   export type GoalUpsertWithoutPathsFromTermInput = {
@@ -37904,11 +37512,6 @@ export namespace Prisma {
   export type ThreadCreateManyUserInput = {
     name: string
     description?: string | null
-    termId: string
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -38067,7 +37670,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     derivedFrom?: TermUpdateOneWithoutDerivedTermsNestedInput
     derivedTerms?: TermUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUpdateManyWithoutTermNestedInput
     paths?: PathUpdateManyWithoutTermNestedInput
   }
 
@@ -38081,7 +37683,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     derivedTerms?: TermUncheckedUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUncheckedUpdateManyWithoutTermNestedInput
     paths?: PathUncheckedUpdateManyWithoutTermNestedInput
   }
 
@@ -38099,24 +37700,14 @@ export namespace Prisma {
   export type ThreadUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    term?: TermUpdateOneRequiredWithoutThreadsNestedInput
     projects?: ProjectUpdateManyWithoutThreadNestedInput
   }
 
   export type ThreadUncheckedUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    termId?: StringFieldUpdateOperationsInput | string
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutThreadNestedInput
@@ -38125,11 +37716,6 @@ export namespace Prisma {
   export type ThreadUncheckedUpdateManyWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    termId?: StringFieldUpdateOperationsInput | string
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38606,18 +38192,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ThreadCreateManyTermInput = {
-    id?: string
-    name: string
-    description?: string | null
-    meta?: InputJsonValue | null
-    lastWorkedAt?: Date | string | null
-    daytimeRoutine?: InputJsonValue | null
-    threadRoutine?: InputJsonValue | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type PathCreateManyTermInput = {
     id?: string
     learningGoalId: string
@@ -38635,7 +38209,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutTermNestedInput
     derivedTerms?: TermUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUpdateManyWithoutTermNestedInput
     paths?: PathUpdateManyWithoutTermNestedInput
   }
 
@@ -38648,7 +38221,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     derivedTerms?: TermUncheckedUpdateManyWithoutDerivedFromNestedInput
-    threads?: ThreadUncheckedUpdateManyWithoutTermNestedInput
     paths?: PathUncheckedUpdateManyWithoutTermNestedInput
   }
 
@@ -38658,42 +38230,6 @@ export namespace Prisma {
     type?: EnumTermKindFieldUpdateOperationsInput | $Enums.TermKind
     layer?: NullableStringFieldUpdateOperationsInput | string | null
     meta?: InputJsonValue | InputJsonValue | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ThreadUpdateWithoutTermInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutThreadNestedInput
-    projects?: ProjectUpdateManyWithoutThreadNestedInput
-  }
-
-  export type ThreadUncheckedUpdateWithoutTermInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects?: ProjectUncheckedUpdateManyWithoutThreadNestedInput
-  }
-
-  export type ThreadUncheckedUpdateManyWithoutTermInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    meta?: InputJsonValue | InputJsonValue | null
-    lastWorkedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    daytimeRoutine?: InputJsonValue | InputJsonValue | null
-    threadRoutine?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
