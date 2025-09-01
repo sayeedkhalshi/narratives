@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.13.0
- * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.13.0",
-  engine: "361e86d0ea4987e9f53a565309b3eed797a6bcbd"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -120,14 +120,41 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.TermScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
   type: 'type',
+  name: 'name',
+  userId: 'userId',
   derivedFromId: 'derivedFromId',
-  layer: 'layer',
-  meta: 'meta',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TermMetaScalarFieldEnum = {
+  id: 'id',
+  termId: 'termId',
+  initialIdea: 'initialIdea',
+  initialAssumption: 'initialAssumption',
+  initialQuestion: 'initialQuestion',
+  theStory: 'theStory',
+  theCurves: 'theCurves',
+  mistakes: 'mistakes',
+  emotionalJourney: 'emotionalJourney',
+  steps: 'steps',
+  realizations: 'realizations',
+  narratives: 'narratives',
+  hiddenNarratives: 'hiddenNarratives',
+  hiddenFlows: 'hiddenFlows',
+  controlStructures: 'controlStructures',
+  acknowledgments: 'acknowledgments',
+  unacknowledgements: 'unacknowledgements',
+  implicationFlowByAcknowledgments: 'implicationFlowByAcknowledgments',
+  philosophicalTraps: 'philosophicalTraps',
+  hormonalTraps: 'hormonalTraps',
+  cognitiveTraps: 'cognitiveTraps',
+  perspectiveTraps: 'perspectiveTraps',
+  deliveryOfPerspective: 'deliveryOfPerspective',
+  recommendedFlows: 'recommendedFlows',
+  recommendedFlowsType: 'recommendedFlowsType',
+  layer: 'layer'
 };
 
 exports.Prisma.ThreadScalarFieldEnum = {
@@ -311,7 +338,17 @@ exports.Prisma.QueryMode = {
 };
 exports.TermKind = exports.$Enums.TermKind = {
   GENUINE: 'GENUINE',
-  PERSPECTIVE: 'PERSPECTIVE'
+  PERSPECTIVE: 'PERSPECTIVE',
+  ACCEPTED: 'ACCEPTED',
+  PERSONAL: 'PERSONAL',
+  UNDERSTANDING: 'UNDERSTANDING',
+  RESEARCH: 'RESEARCH'
+};
+
+exports.RecommendedFlowsType = exports.$Enums.RecommendedFlowsType = {
+  GOOD: 'GOOD',
+  BAD: 'BAD',
+  WEIRD: 'WEIRD'
 };
 
 exports.GoalType = exports.$Enums.GoalType = {
@@ -322,6 +359,7 @@ exports.GoalType = exports.$Enums.GoalType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Term: 'Term',
+  TermMeta: 'TermMeta',
   Thread: 'Thread',
   Project: 'Project',
   Goal: 'Goal',

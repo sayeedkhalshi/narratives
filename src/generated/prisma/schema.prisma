@@ -61,25 +61,72 @@ model User {
 // ----------------------------
 // TERM - The main semantic container
 // ----------------------------
+// fields - name, derived from, derived to, perspective terms,
+// list of perspective terms to to get it fully for this path goal
 model Term {
-  user          User?    @relation(fields: [id], references: [id])
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  description   String?
-  type          TermKind
-  derivedFromId String?  @db.ObjectId // Only used if this is a PerspectiveTerm
-  derivedFrom   Term?    @relation("DerivedTerms", fields: [derivedFromId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  derivedTerms  Term[]   @relation("DerivedTerms")
-  layer         String? // For Bloom’s taxonomy or category grouping
-  meta          Json? // todos, aim, strategies, success, failures, createdTerms
-  paths         Path[] // Paths starting from this Term
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  type TermKind
+  name String
+
+  // Relationships
+  userId        String? @db.ObjectId
+  user          User?   @relation(fields: [userId], references: [id])
+  derivedFromId String? @db.ObjectId
+  derivedFrom   Term?   @relation("DerivedTerms", fields: [derivedFromId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  derivedTerms  Term[]  @relation("DerivedTerms")
+
+  meta  TermMeta? // optional one-to-one
+  paths Path[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TermMeta {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  termId String @unique
+  term   Term   @relation(fields: [termId], references: [id])
+
+  // moved all optional conceptual fields here
+  initialIdea                      String?
+  initialAssumption                String?
+  initialQuestion                  String?
+  theStory                         String?
+  theCurves                        String?
+  mistakes                         String?
+  emotionalJourney                 String?
+  steps                            String?
+  realizations                     String?
+  narratives                       String?
+  hiddenNarratives                 String?
+  hiddenFlows                      String?
+  controlStructures                String?
+  acknowledgments                  String?
+  unacknowledgements               String?
+  implicationFlowByAcknowledgments String?
+  philosophicalTraps               String?
+  hormonalTraps                    String?
+  cognitiveTraps                   String?
+  perspectiveTraps                 String?
+  deliveryOfPerspective            String?
+  recommendedFlows                 String?
+  recommendedFlowsType             RecommendedFlowsType?
+  layer                            String? // Bloom’s taxonomy / grouping
 }
 
 enum TermKind {
-  GENUINE
-  PERSPECTIVE
+  GENUINE // Gained knowledge from experience
+  PERSPECTIVE // Showing a perspective
+  ACCEPTED // Accepted by the community
+  PERSONAL // Personal thought management
+  UNDERSTANDING // Trying to understand a concept through activity
+  RESEARCH // Finding how a term can be explained for a perspective or making a term out of few terms (perspectives)
+}
+
+enum RecommendedFlowsType {
+  GOOD
+  BAD
+  WEIRD
 }
 
 // ----------------------------
